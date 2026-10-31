@@ -19,7 +19,7 @@ export class TareaService {
   
   // Encabezado con el token JWT simulado requerido por el Backend
   private headers = new HttpHeaders({
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhcHAtZ2VzdG9yVGFyZWFzIiwibmFtZSI6Ik9saXZlciBDVCIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTYyMzkwMjJ9._XDbSS6HxxJjjoT4mAw0iOUI8SScrEaQfNxpMfIklBU'
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbmlzdHJhZG9yIiwibmFtZSI6IkVzdHVkaWFudGUiLCJyb2xlIjoiVVNVQVJJT19QUkFDVElDQSJ9.c2VjcmV0LWtleS1zaW11bGFkby0yMDI2'
   });
 
   constructor(private http: HttpClient) {}

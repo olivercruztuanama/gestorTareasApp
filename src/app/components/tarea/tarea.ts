@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TareaService, Tarea } from '../../services/tarea';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -23,14 +23,25 @@ export class TareaComponent implements OnInit {
   editando: boolean = false;
   idEditando?: number;
 
-  constructor(private tareaService: TareaService) {}
+  //constructor(private tareaService: TareaService) {}
+  constructor(private tareaService: TareaService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.cargarTareas();
   }
 
   cargarTareas(): void {
-    this.tareaService.getTareas().subscribe(res => this.tareas = res);
+    this.tareaService.getTareas().subscribe({
+      next: (res) => {
+        this.tareas = res;
+        //console.log(this.tareas);
+        this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('Error al conectar con el servidor backend:', err);
+      alert('No se pudo conectar con el servidor. Revisa si el backend está encendido o si el token es válido.');
+    }
+    });
   }
 
   guardarTarea(): void {
@@ -53,6 +64,7 @@ export class TareaComponent implements OnInit {
     this.editando = true;
     this.idEditando = tarea.id;
     this.nuevaTarea = { titulo: tarea.titulo, descripcion: tarea.descripcion };
+    this.cdr.detectChanges();
   }
 
   borrar(id?: number): void {
@@ -65,5 +77,6 @@ export class TareaComponent implements OnInit {
     this.editando = false;
     this.idEditando = undefined;
     this.nuevaTarea = { titulo: '', descripcion: '' };
+    this.cdr.detectChanges();
   }
 }

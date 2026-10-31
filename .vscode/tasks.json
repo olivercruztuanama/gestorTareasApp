@@ -11,12 +11,8 @@
         "pattern": "$tsc",
         "background": {
           "activeOnStart": true,
-          "beginsPattern": {
-            "regexp": "Changes detected"
-          },
-          "endsPattern": {
-            "regexp": "bundle generation (complete|failed)"
-          }
+          "beginsPattern": "^.*(⚡|Compiling|File change detected|Changes detected).*$",
+          "endsPattern": "^.*(Compiled successfully|Failed to compile|bundle generation|Application bundle generation|complete|failed).*$"
         }
       }
     },
