@@ -1,0 +1,57 @@
+<div class="container" style="max-width: 600px; margin: 30px auto; font-family: sans-serif;">
+  <h2>📝 Gestor de Tareas</h2>
+
+  <!-- Formulario -->
+  <form (ngSubmit)="guardarTarea()" #tareaForm="ngForm" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc;">
+    <h3>{{ editando ? 'Editar Tarea' : 'Nueva Tarea' }}</h3>
+    
+    <div style="margin-bottom: 10px;">
+      <label>Título *</label><br>
+      <input type="text" name="titulo" [(ngModel)]="nuevaTarea.titulo" required #titulo="ngModel" style="width: 100%; padding: 5px;">
+      <small *ngIf="titulo.invalid && titulo.touched" style="color: red;">El título es obligatorio.</small>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label>Descripción</label><br>
+      <textarea name="descripcion" [(ngModel)]="nuevaTarea.descripcion" style="width: 100%; padding: 5px;"></textarea>
+    </div>
+
+    <button type="submit" [disabled]="tareaForm.invalid" style="padding: 5px 10px;">{{ editando ? 'Actualizar' : 'Agregar' }}</button>
+    <button type="button" *ngIf="editando" (click)="resetForm()" style="margin-left: 10px; padding: 5px 10px;">Cancelar</button>
+  </form>
+
+  <!-- <div *ngIf="tareas && tareas.length > 0">
+  <ul class="list-group">
+    <li *ngFor="let t of tareas" class="list-group-item d-flex justify-content-between align-items-center">
+      <div>
+        <h6 class="fw-bold">{{ t?.titulo }}</h6>
+        <p class="text-muted small mb-0">{{ t?.descripcion }}</p>
+      </div>
+      <div class="btn-group">
+        <button (click)="editar(t)" class="btn btn-sm btn-outline-warning">✏️</button>
+        <button (click)="borrar(t?.id)" class="btn btn-sm btn-outline-danger">❌</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="!tareas || tareas.length === 0" class="text-center py-4 text-muted">
+  No hay tareas pendientes2.
+</div> -->
+  <!-- Lista de Tareas -->
+  <h3>Lista de Tareas</h3>
+  <div *ngIf="tareas.length === 0">No hay tareas pendientes.</div>
+  
+  <ul style="list-style: none; padding: 0;">
+    <li *ngFor="let t of tareas" style="border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <strong>{{ t.titulo }}</strong>
+        <p style="margin: 5px 0 0 0; color:#555; font-size:0.9em;">{{ t.descripcion }}</p>
+      </div>
+      <div>
+        <button (click)="editar(t)" style="margin-right: 5px;">✏️</button>
+        <button (click)="borrar(t.id)">❌</button>
+      </div>
+    </li>
+  </ul> 
+</div>
